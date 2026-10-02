@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rikol brand identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* brand constants: never change with theme */
+    --plum: #1F1535;
+    --lilac: #B9A8FF;
+    --pin: #FFD84A;
+    --mist: #F2F0F9;
+    --slate: #5A5472;
+    --panel-demo: #2B1F48;
+
+    /* page tokens: light */
+    --bg: #F2F0F9;
+    --fg: #1F1535;
+    --muted: #5A5472;
+    --line: #D9D4EA;
+    --panel: #FFFFFF;
+
+    --sans: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171028;
+      --fg: #F2F0F9;
+      --muted: #A9A3C2;
+      --line: #352A52;
+      --panel: #211739;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171028;
+    --fg: #F2F0F9;
+    --muted: #A9A3C2;
+    --line: #352A52;
+    --panel: #211739;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, p { margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  section { border-top: 1px solid var(--line); padding: clamp(56px, 9vw, 112px) 0; }
+  h2 {
+    font-size: clamp(30px, 4.6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 650;
+    max-width: 18ch;
+  }
+  .lede { color: var(--muted); max-width: 56ch; margin-top: 20px; }
+  .sec-head { margin-bottom: clamp(32px, 5vw, 56px); }
+  :focus-visible { outline: 3px solid var(--lilac); outline-offset: 3px; border-radius: 6px; }
+
+  /* recall highlight: the one signature element */
+  .recall {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--plum);
+    background-image: linear-gradient(transparent 34%, var(--pin) 34%, var(--pin) 94%, transparent 94%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0 .12em;
+    margin: 0 -.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-size .7s cubic-bezier(.3, .7, .2, 1);
+  }
+  .recall.pre { background-size: 0% 100%; transition: none; }
+  @media (prefers-reduced-motion: reduce) { .recall { transition: none; } }
+
+  /* lockup */
+  .lockup { display: inline-flex; align-items: center; gap: .32em; font-family: var(--sans); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+  .lockup svg { width: 1.25em; height: 1.25em; flex: none; }
+  .lockup span { transform: translateY(-.04em); }
+
+  /* header + hero */
+  header.top { padding: 28px 0; }
+  header.top .lockup { font-size: 28px; }
+  .hero { border-top: 0; padding-top: clamp(24px, 5vw, 56px); }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
+  .hero h1 {
+    font-size: clamp(48px, 8.4vw, 104px);
+    line-height: .94;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    font-variation-settings: "wdth" 100;
+  }
+  .hero h1 .l2 { display: block; }
+  .hero p.sub { margin-top: 28px; font-size: 19px; color: var(--muted); max-width: 40ch; }
+
+  /* chat demo */
+  .demo {
+    background: var(--panel-demo);
+    color: var(--mist);
+    border: 1px solid rgba(185, 168, 255, .22);
+    border-radius: 22px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 420px;
+  }
+  .demo-log { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .msg-user {
+    align-self: flex-end;
+    background: var(--lilac);
+    color: var(--plum);
+    padding: 10px 14px;
+    border-radius: 16px 16px 4px 16px;
+    max-width: 85%;
+    font-size: 16px;
+  }
+  .msg-bot { display: flex; gap: 10px; align-items: flex-start; }
+  .msg-bot .av { width: 30px; height: 30px; flex: none; color: var(--mist); margin-top: 2px; }
+  .msg-bot .body { font-size: 16px; }
+  .snip { margin: 10px 0 6px; font-size: 20px; line-height: 1.6; }
+  .snip-meta { font-size: 13px; color: #B7B0D4; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 14px;
+    color: var(--mist);
+    background: transparent;
+    border: 1px solid rgba(242, 240, 249, .32);
+    border-radius: 999px;
+    padding: 7px 13px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .chip:hover { border-color: var(--lilac); }
+  .chip[aria-pressed="true"] { background: rgba(185, 168, 255, .18); border-color: var(--lilac); }
+  .composer {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(242, 240, 249, .08);
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: #B7B0D4;
+    font-size: 15px;
+  }
+  .composer i { width: 28px; height: 28px; border-radius: 50%; background: var(--pin); display: block; position: relative; }
+  .composer i::after { content: ""; position: absolute; left: 9px; top: 8px; width: 8px; height: 8px; border-top: 2.5px solid var(--plum); border-right: 2.5px solid var(--plum); transform: rotate(-45deg) translate(-1px, 2px); }
+
+  /* two-col definitions */
+  .defs { display: grid; gap: 0; }
+  .def { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .def:first-child { border-top: 0; padding-top: 0; }
+  .def h3 { font-size: 22px; letter-spacing: -0.015em; font-weight: 650; }
+  .def p { color: var(--muted); max-width: 58ch; }
+  .name-note { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 24px; }
+  .name-note .big { font-size: clamp(34px, 5vw, 56px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+  .name-note p { color: var(--muted); max-width: 58ch; }
+
+  /* logo section */
+  .stage {
+    background: var(--plum);
+    color: var(--mist);
+    border-radius: 26px;
+    display: grid;
+    place-items: center;
+    padding: clamp(40px, 8vw, 96px) 20px;
+  }
+  .stage svg { width: clamp(150px, 26vw, 260px); height: auto; }
+  .logo-note { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 56px; margin-top: 32px; }
+  .logo-note p { color: var(--muted); max-width: 52ch; }
+  .logo-note strong { color: var(--fg); font-weight: 650; }
+  .explore { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 56px; }
+  .ex { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: var(--panel); }
+  .ex .tile { background: var(--mist); color: var(--plum); border-radius: 12px; display: grid; place-items: center; height: 140px; }
+  .ex .tile svg { width: 76px; height: 76px; }
+  .ex h3 { font-size: 18px; font-weight: 650; margin-top: 16px; }
+  .ex p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+  .ex.chosen { border-color: var(--lilac); border-width: 2px; padding: 21px; }
+  .explore-title { margin-top: 56px; font-size: 20px; font-weight: 650; }
+  .explore-title + .explore { margin-top: 18px; }
+  .lockups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 56px; }
+  .lk { border-radius: 18px; padding: clamp(28px, 5vw, 52px) 16px; display: grid; place-items: center; }
+  .lk .lockup { font-size: clamp(26px, 3.4vw, 38px); }
+  .lk.on-mist { background: var(--mist); color: var(--plum); border: 1px solid var(--line); }
+  .lk.on-plum { background: var(--plum); color: var(--mist); }
+  .lk.on-lilac { background: var(--lilac); color: var(--plum); }
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+  .rules h3 { font-size: 18px; font-weight: 650; margin-bottom: 6px; }
+  .rules p { color: var(--muted); font-size: 16px; }
+  .clear-demo { margin-top: 18px; display: inline-block; padding: 14px; border: 1.5px dashed var(--lilac); border-radius: 6px; color: var(--fg); }
+  .clear-demo .lockup { font-size: 22px; }
+  .sizes { margin-top: 18px; display: flex; align-items: flex-end; gap: 22px; color: var(--fg); }
+  .sizes svg { display: block; }
+  .icons { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; margin-top: 56px; }
+  .icon-sq { width: 120px; height: 120px; border-radius: 28px; background: var(--plum); color: var(--mist); display: grid; place-items: center; }
+  .icon-sq svg { width: 74px; height: 74px; }
+  .icon-sm { width: 56px; height: 56px; border-radius: 14px; }
+  .icon-sm svg { width: 34px; height: 34px; }
+  .icon-circ { border-radius: 50%; background: var(--lilac); color: var(--plum); }
+  .icons p { color: var(--muted); max-width: 36ch; font-size: 16px; }
+  .misuse { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+  .mis { text-align: left; }
+  .mis .tile { height: 120px; border: 1px solid var(--line); border-radius: 14px; display: grid; place-items: center; background: var(--panel); color: var(--fg); overflow: hidden; }
+  .mis p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+
+  /* color */
+  .swatches { display: grid; }
+  .sw { display: grid; grid-template-columns: 96px minmax(130px, 220px) 1fr; gap: 24px; align-items: center; padding: 18px 0; border-top: 1px solid var(--line); }
+  .sw:first-child { border-top: 0; }
+  .chipcol { width: 96px; height: 64px; border-radius: 14px; border: 1px solid rgba(31, 21, 53, .12); }
+  .sw h3 { font-size: 20px; font-weight: 650; letter-spacing: -0.01em; }
+  .sw .hex { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+  .sw p { color: var(--muted); max-width: 52ch; font-size: 16px; }
+  .ratio { margin-top: 56px; }
+  .ratio-bar { display: flex; height: 64px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
+  .ratio-bar div { height: 100%; }
+  .ratio p { margin-top: 14px; color: var(--muted); max-width: 62ch; font-size: 16px; }
+
+  /* type */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .spec { border-radius: 22px; padding: clamp(24px, 4vw, 40px); background: var(--panel); border: 1px solid var(--line); }
+  .spec .glyph { font-size: clamp(88px, 14vw, 160px); line-height: 1; }
+  .spec.sans .glyph { font-weight: 700; letter-spacing: -0.05em; }
+  .spec.ser .glyph { font-family: var(--serif); font-style: italic; font-weight: 400; }
+  .spec h3 { font-size: 22px; font-weight: 650; margin-top: 18px; }
+  .spec p { color: var(--muted); font-size: 16px; margin-top: 4px; }
+  .spec .sample-sans { margin-top: 20px; font-size: 18px; }
+  .spec .sample-ser { margin-top: 20px; font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.5; }
+  .scale { margin-top: 56px; }
+  .scale-row { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--line); }
+  .scale-row .tag { color: var(--muted); font-size: 14px; }
+  .s-display { font-size: clamp(36px, 6vw, 64px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
+  .s-title { font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 650; }
+  .s-body { font-size: 17px; line-height: 1.55; max-width: 60ch; }
+  .s-recall { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.6; }
+  .s-cap { font-size: 13px; color: var(--muted); }
+
+  /* voice */
+  .voice-list { display: grid; }
+  .vrow { display: grid; grid-template-columns: minmax(120px, 190px) 1fr 1fr; gap: 24px; padding: 20px 0; border-top: 1px solid var(--line); align-items: start; }
+  .vrow:first-child { border-top: 0; }
+  .vrow .when { color: var(--muted); font-size: 15px; }
+  .say { font-weight: 600; }
+  .avoid { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90, 84, 114, .5); }
+  .vhead { display: grid; grid-template-columns: minmax(120px, 190px) 1fr 1fr; gap: 24px; padding-bottom: 12px; color: var(--muted); font-size: 14px; }
+
+  /* components */
+  .comp-panel { background: var(--panel-demo); color: var(--mist); border-radius: 26px; padding: clamp(22px, 4vw, 44px); display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 56px); border: 1px solid rgba(185, 168, 255, .18); }
+  .comp-col { display: flex; flex-direction: column; gap: 22px; }
+  .comp-col h3 { font-size: 14px; font-weight: 500; color: #B7B0D4; margin-bottom: -8px; }
+  .tag-saved { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mist); background: rgba(242, 240, 249, .1); border-radius: 999px; padding: 4px 11px 4px 9px; align-self: flex-start; }
+  .tag-saved::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pin); }
+  .btn { font: inherit; font-weight: 600; font-size: 16px; border-radius: 12px; padding: 12px 18px; cursor: pointer; border: 1.5px solid transparent; }
+  .btn-primary { background: var(--pin); color: var(--plum); }
+  .btn-primary:hover { background: #FFE27A; }
+  .btn-ghost { background: transparent; color: var(--mist); border-color: rgba(242, 240, 249, .38); }
+  .btn-ghost:hover { border-color: var(--lilac); }
+  .btn-text { background: transparent; color: #FFB4A8; padding-left: 4px; padding-right: 4px; }
+  .btn-text:hover { text-decoration: underline; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .field-label { font-size: 13px; color: #B7B0D4; }
+  .field { background: rgba(242, 240, 249, .08); border: 1.5px solid var(--lilac); border-radius: 12px; padding: 12px 14px; font-size: 16px; }
+  .empty { border: 1.5px dashed rgba(185, 168, 255, .45); border-radius: 16px; padding: 22px; }
+  .empty strong { display: block; font-size: 18px; font-weight: 650; margin-bottom: 4px; }
+  .empty p { color: #B7B0D4; font-size: 15px; }
+
+  /* motion */
+  .motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+  .motion-demo { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: clamp(28px, 5vw, 52px); display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .motion-demo .s-recall { font-size: clamp(22px, 3vw, 30px); }
+  .motion-demo .btn-ghost { color: var(--fg); border-color: var(--line); }
+  .motion-demo .btn-ghost:hover { border-color: var(--slate); }
+  .motion-list { display: grid; gap: 22px; }
+  .motion-list h3 { font-size: 18px; font-weight: 650; }
+  .motion-list p { color: var(--muted); font-size: 16px; max-width: 46ch; }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 56px; color: var(--muted); font-size: 15px; }
+  footer .row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer .lockup { font-size: 22px; color: var(--fg); }
+
+  @media (max-width: 860px) {
+    .hero-grid, .motion-grid, .comp-panel, .type-grid, .logo-note { grid-template-columns: 1fr; }
+    .lockups, .rules, .misuse { grid-template-columns: 1fr; }
+    .def, .name-note { grid-template-columns: 1fr; gap: 6px; }
+    .sw { grid-template-columns: 72px 1fr; }
+    .sw p { grid-column: 1 / -1; }
+    .chipcol { width: 72px; height: 56px; }
+    .vhead { display: none; }
+    .vrow { grid-template-columns: 1fr; gap: 6px; }
+    .scale-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Mark definitions. The dot uses --fill (defaults to Pin yellow); outlines use currentColor. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Chosen mark: single bubble, open top-right corner, the memory dot returns into the gap -->
+    <symbol id="rk-mark" viewBox="0 0 64 64">
+      <path d="M37 8H22A14 14 0 0 0 8 22V36A14 14 0 0 0 22 50H28V59L38 50H42A14 14 0 0 0 56 36V28" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="49.5" cy="14.5" r="6.5" style="fill:var(--fill,#FFD84A)"/>
+    </symbol>
+    <!-- Option A: closed bubble, dot at the centre -->
+    <symbol id="rk-mark-a" viewBox="0 0 64 64">
+      <path d="M22 8H42A14 14 0 0 1 56 22V36A14 14 0 0 1 42 50H38L28 59V50H22A14 14 0 0 1 8 36V22A14 14 0 0 1 22 8Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
+      <circle cx="32" cy="29" r="6.5" style="fill:var(--fill,#FFD84A)"/>
+    </symbol>
+    <!-- Option C: closed bubble with a highlighter bar -->
+    <symbol id="rk-mark-c" viewBox="0 0 64 64">
+      <path d="M22 8H42A14 14 0 0 1 56 22V36A14 14 0 0 1 42 50H38L28 59V50H22A14 14 0 0 1 8 36V22A14 14 0 0 1 22 8Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
+      <rect x="18" y="24.5" width="28" height="9" rx="4.5" style="fill:var(--fill,#FFD84A)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div class="lockup" role="img" aria-label="rikol">
+      <svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-grid">
+      <div>
+        <h1 id="hero-title">Give it once.<span class="l2">Get it back.</span></h1>
+        <p class="sub">Rikol is the chatbot that keeps everything you tell it and hands it back the moment you ask.</p>
+      </div>
+
+      <div class="demo" aria-label="Rikol conversation preview">
+        <div class="demo-log" id="log" aria-live="polite"></div>
+        <div class="chips" id="chips" role="group" aria-label="Try a question"></div>
+        <div class="composer" aria-hidden="true"><span>Ask for anything you've told me</span><i></i></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The brand idea</h2>
+      <p class="lede">Most chatbots forget when the tab closes. Rikol is the one that doesn't. Everything about the brand should feel like a trusted notebook that can also talk.</p>
+    </div>
+    <div class="defs">
+      <div class="def">
+        <h3>Exact</h3>
+        <p>Rikol returns what you gave it, in your own words, not a rewrite. What you saved is shown in a serif voice and marked with a highlight so you can see it's yours.</p>
+      </div>
+      <div class="def">
+        <h3>Quiet</h3>
+        <p>Rikol doesn't announce that it remembers. It answers, says when the thing was saved, and stops. No performance, no pet names.</p>
+      </div>
+      <div class="def">
+        <h3>Yours</h3>
+        <p>You can see, edit, and forget anything you've saved. The brand is calm because the user is in control.</p>
+      </div>
+    </div>
+    <div class="name-note">
+      <div class="big">ree-KOL</div>
+      <p>The name is "recall" spelled the way you would say it. Short, lowercase in the wordmark, and easy to type from memory, which suits a product that is all about remembering.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Logo</h2>
+      <p class="lede">One clean chat bubble drawn in a single stroke, with its top-right corner left open. A small yellow dot sits in the gap: the thing you said, coming back.</p>
+    </div>
+
+    <div class="stage" role="img" aria-label="The Rikol mark on a deep plum background">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#rk-mark"/></svg>
+    </div>
+
+    <div class="logo-note">
+      <p><strong>The dot is the memory.</strong> It carries the one yellow fill in the system, the same highlighter that marks recalled text in the product. At small sizes it still reads as a chat icon with a notification-style accent.</p>
+      <p><strong>The gap is the recall.</strong> The outline is one continuous line that stops short of the corner. It's what makes this bubble ownable, and it costs nothing at 20 px.</p>
+    </div>
+
+    <h3 class="explore-title">Directions explored</h3>
+    <div class="explore">
+      <div class="ex">
+        <div class="tile" role="img" aria-label="Option A"><svg aria-hidden="true"><use href="#rk-mark-a"/></svg></div>
+        <h3>A. Centre dot</h3>
+        <p>Closed bubble, dot in the middle. Cleanest, but it looks like a generic typing indicator.</p>
+      </div>
+      <div class="ex chosen">
+        <div class="tile" role="img" aria-label="Option B, chosen"><svg aria-hidden="true"><use href="#rk-mark"/></svg></div>
+        <h3>B. Open corner (used)</h3>
+        <p>One stroke with a gap where the dot returns. Minimal and the most ownable.</p>
+      </div>
+      <div class="ex">
+        <div class="tile" role="img" aria-label="Option C"><svg aria-hidden="true"><use href="#rk-mark-c"/></svg></div>
+        <h3>C. Highlighter bar</h3>
+        <p>Closed bubble with a marker stripe. Closest to the in-product highlight, a little busier.</p>
+      </div>
+    </div>
+
+    <div class="lockups">
+      <div class="lk on-mist"><div class="lockup" role="img" aria-label="rikol"><svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span></div></div>
+      <div class="lk on-plum"><div class="lockup" role="img" aria-label="rikol"><svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span></div></div>
+      <div class="lk on-lilac"><div class="lockup" role="img" aria-label="rikol"><svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span></div></div>
+    </div>
+
+    <div class="rules">
+      <div>
+        <h3>Clear space</h3>
+        <p>Keep space around the logo equal to the height of the bubble's tail, about 14% of the mark.</p>
+        <div class="clear-demo"><div class="lockup" role="img" aria-label="rikol"><svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span></div></div>
+      </div>
+      <div>
+        <h3>Minimum size</h3>
+        <p>The mark works down to 20 px. The full lockup should not go below 80 px wide.</p>
+        <div class="sizes" aria-hidden="true">
+          <svg width="20" height="20"><use href="#rk-mark"/></svg>
+          <svg width="32" height="32"><use href="#rk-mark"/></svg>
+          <svg width="48" height="48"><use href="#rk-mark"/></svg>
+        </div>
+      </div>
+      <div>
+        <h3>The wordmark</h3>
+        <p>Always lowercase, set in Bricolage Grotesque Bold with tight tracking. Never capitalise the R, and never set it in the serif.</p>
+      </div>
+    </div>
+
+    <div class="icons">
+      <div class="icon-sq" role="img" aria-label="App icon"><svg aria-hidden="true"><use href="#rk-mark"/></svg></div>
+      <div class="icon-sq icon-sm" role="img" aria-label="Small app icon"><svg aria-hidden="true"><use href="#rk-mark"/></svg></div>
+      <div class="icon-sq icon-circ" role="img" aria-label="Round profile avatar"><svg aria-hidden="true"><use href="#rk-mark"/></svg></div>
+      <p>App icon on Deep Well plum, and the round avatar for social profiles on Haze lilac.</p>
+    </div>
+
+    <h3 style="margin-top:64px;font-size:20px;font-weight:650">Please don't</h3>
+    <div class="misuse">
+      <div class="mis">
+        <div class="tile"><svg width="150" height="60" viewBox="0 0 64 64" preserveAspectRatio="none" aria-hidden="true"><use href="#rk-mark"/></svg></div>
+        <p>Stretch or squash it.</p>
+      </div>
+      <div class="mis">
+        <div class="tile" style="--fill:#E0584A"><svg width="64" height="64" aria-hidden="true"><use href="#rk-mark"/></svg></div>
+        <p>Change the highlight colour. Pin yellow only.</p>
+      </div>
+      <div class="mis">
+        <div class="tile"><svg width="64" height="64" style="transform:rotate(-18deg)" aria-hidden="true"><use href="#rk-mark"/></svg></div>
+        <p>Tilt or rotate it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Colour</h2>
+      <p class="lede">A deep violet-black base with soft lilac and one highlighter yellow. The yellow is rationed: it only ever marks something that was remembered.</p>
+    </div>
+
+    <div class="swatches">
+      <div class="sw">
+        <div class="chipcol" style="background:#1F1535"></div>
+        <div><h3>Deep Well</h3><div class="hex">#1F1535</div></div>
+        <p>Primary dark. Backgrounds, text on light, the app icon. Black with some depth in it.</p>
+      </div>
+      <div class="sw">
+        <div class="chipcol" style="background:#F2F0F9"></div>
+        <div><h3>Page</h3><div class="hex">#F2F0F9</div></div>
+        <p>Primary light. A cool off-white that sits well beside lilac and never looks yellowed.</p>
+      </div>
+      <div class="sw">
+        <div class="chipcol" style="background:#B9A8FF"></div>
+        <div><h3>Haze</h3><div class="hex">#B9A8FF</div></div>
+        <p>Secondary. The user's own messages, focus rings, the round avatar. It's the colour of the user's side of the conversation.</p>
+      </div>
+      <div class="sw">
+        <div class="chipcol" style="background:#5A5472"></div>
+        <div><h3>Quiet</h3><div class="hex">#5A5472</div></div>
+        <p>Secondary text and captions on light backgrounds. About 6:1 contrast on Page.</p>
+      </div>
+      <div class="sw">
+        <div class="chipcol" style="background:#FFD84A"></div>
+        <div><h3>Pin</h3><div class="hex">#FFD84A</div></div>
+        <p>The highlighter. Recalled text, the front bubble, the primary action. Always paired with Deep Well text, never white.</p>
+      </div>
+    </div>
+
+    <div class="ratio">
+      <div class="ratio-bar" role="img" aria-label="Colour proportions: Page 45 percent, Deep Well 30 percent, Haze 15 percent, Quiet 7 percent, Pin 3 percent">
+        <div style="width:45%;background:#F2F0F9"></div>
+        <div style="width:30%;background:#1F1535"></div>
+        <div style="width:15%;background:#B9A8FF"></div>
+        <div style="width:7%;background:#5A5472"></div>
+        <div style="width:3%;background:#FFD84A"></div>
+      </div>
+      <p>Aim for roughly these proportions. If Pin starts to fill more than a few percent of a screen, it stops meaning "this was remembered" and starts being decoration.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Typography</h2>
+      <p class="lede">Two families with two jobs. Sans is Rikol speaking. Serif italic is your words coming back to you.</p>
+    </div>
+
+    <div class="type-grid">
+      <div class="spec sans">
+        <div class="glyph">Aa</div>
+        <h3>Bricolage Grotesque</h3>
+        <p>Rikol's voice: interface, headlines, wordmark. Weights 400 to 700.</p>
+        <p class="sample-sans">Here's what you saved.</p>
+      </div>
+      <div class="spec ser">
+        <div class="glyph">Aa</div>
+        <h3>Newsreader Italic</h3>
+        <p>The user's voice: anything recalled from memory, always with the highlight.</p>
+        <p class="sample-ser">Invoice due Friday 16 October, net 7.</p>
+      </div>
+    </div>
+
+    <div class="scale">
+      <div class="scale-row"><div class="tag">Display, 64 / 1.0, Bold</div><div class="s-display">Give it once.</div></div>
+      <div class="scale-row"><div class="tag">Title, 32 / 1.1, Semibold</div><div class="s-title">Everything you've saved</div></div>
+      <div class="scale-row"><div class="tag">Body, 17 / 1.55, Regular</div><div class="s-body">Ask in plain language. Rikol finds the note, the number, or the decision you saved and shows it as you wrote it.</div></div>
+      <div class="scale-row"><div class="tag">Recall, 20 / 1.6, Serif italic</div><div class="s-recall"><span class="recall">Fonts locked: two families, no third.</span></div></div>
+      <div class="scale-row"><div class="tag">Caption, 13 / 1.4, Regular</div><div class="s-cap">Saved 28 Sept</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Voice</h2>
+      <p class="lede">Plain, exact, short. Rikol sounds like a good assistant who writes things down, not a friend who wants to be liked. Sentence case, no exclamation marks, no emoji.</p>
+    </div>
+
+    <div class="vhead"><div>Moment</div><div>Rikol says</div><div>Rikol avoids</div></div>
+    <div class="voice-list">
+      <div class="vrow"><div class="when">After you save something</div><div class="say">Saved.</div><div class="avoid">Got it! I'll remember that for you</div></div>
+      <div class="vrow"><div class="when">Giving something back</div><div class="say">You saved this on 12 Sept:</div><div class="avoid">Great question! Here's what I remembered</div></div>
+      <div class="vrow"><div class="when">Nothing found</div><div class="say">Nothing saved about that yet. Tell me and I'll keep it.</div><div class="avoid">Sorry, I couldn't find anything</div></div>
+      <div class="vrow"><div class="when">Several matches</div><div class="say">Two notes match. Which one do you mean?</div><div class="avoid">Hmm, I found a few things</div></div>
+      <div class="vrow"><div class="when">Forgetting</div><div class="say">Forgotten. This can't be undone.</div><div class="avoid">Okay, I've deleted it for you</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Interface</h2>
+      <p class="lede">The core pieces, shown on the dark surface where Rikol will mostly live. Corners are round on containers and slightly tighter on controls. Yellow appears once per view.</p>
+    </div>
+
+    <div class="comp-panel">
+      <div class="comp-col">
+        <h3>Conversation</h3>
+        <div class="msg-user" style="max-width:90%">When's the Ajoke Foods invoice due?</div>
+        <div class="msg-bot">
+          <svg class="av" aria-hidden="true"><use href="#rk-mark"/></svg>
+          <div class="body">
+            You saved this on 12 Sept:
+            <div class="snip"><span class="recall">Ajoke Foods rebrand invoice: due Friday 16 October, net 7.</span></div>
+            <div class="tag-saved">Saved 12 Sept</div>
+          </div>
+        </div>
+        <h3>Empty state</h3>
+        <div class="empty">
+          <strong>Nothing saved yet</strong>
+          <p>Tell Rikol anything you want back later: a number, a decision, a link.</p>
+        </div>
+      </div>
+      <div class="comp-col">
+        <h3>Buttons</h3>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button">Save note</button>
+          <button class="btn btn-ghost" type="button">Edit</button>
+          <button class="btn btn-text" type="button">Forget this</button>
+        </div>
+        <h3>Input</h3>
+        <div>
+          <div class="field-label">Note</div>
+          <div class="field" style="margin-top:6px">Studio wifi is Lagoon-5G</div>
+        </div>
+        <h3>Saved tag</h3>
+        <div class="tag-saved">Saved 3 Aug</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Motion</h2>
+      <p class="lede">One signature move. When Rikol hands something back, the highlight sweeps across it from left to right, like a marker going over a line.</p>
+    </div>
+    <div class="motion-grid">
+      <div class="motion-demo">
+        <div class="s-recall"><span class="recall" id="motion-recall">Give it once. Get it back.</span></div>
+        <button class="btn btn-ghost" id="replay" type="button">Replay</button>
+      </div>
+      <div class="motion-list">
+        <div><h3>Sweep, 700 ms</h3><p>Ease-out, left to right, once per recalled snippet. It plays when the answer appears and not again.</p></div>
+        <div><h3>Everything else stays still</h3><p>Buttons and panels change instantly or within 150 ms. No bouncing, no typing dots standing in for thought.</p></div>
+        <div><h3>Reduced motion</h3><p>The highlight simply appears, already in place.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div class="lockup" role="img" aria-label="rikol"><svg aria-hidden="true"><use href="#rk-mark"/></svg><span>rikol</span></div>
+      <div>Brand identity, first round</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var prompts = [
+    { q: "What's the wifi password at the Yaba studio?", a: "Lagoon-5G, password plantain2026.", d: "Saved 3 Aug" },
+    { q: "When's the Ajoke Foods invoice due?", a: "Ajoke Foods rebrand invoice: due Friday 16 October, net 7.", d: "Saved 12 Sept" },
+    { q: "What did I decide about the fonts?", a: "Fonts locked: two families, no third.", d: "Saved 28 Sept" }
+  ];
+  var log = document.getElementById("log");
+  var chips = document.getElementById("chips");
+  var buttons = [];
+
+  function sweep(el) {
+    el.classList.add("pre");
+    void el.offsetWidth;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { el.classList.remove("pre"); });
+    });
+  }
+
+  function show(i) {
+    var p = prompts[i];
+    log.innerHTML = "";
+    var u = document.createElement("div");
+    u.className = "msg-user";
+    u.textContent = p.q;
+    var b = document.createElement("div");
+    b.className = "msg-bot";
+    b.innerHTML =
+      '<svg class="av" aria-hidden="true"><use href="#rk-mark"/></svg>' +
+      '<div class="body">You saved this:<div class="snip"><span class="recall"></span></div>' +
+      '<div class="snip-meta"></div></div>';
+    b.querySelector(".recall").textContent = p.a;
+    b.querySelector(".snip-meta").textContent = p.d;
+    log.appendChild(u);
+    log.appendChild(b);
+    buttons.forEach(function (btn, j) { btn.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    sweep(b.querySelector(".recall"));
+  }
+
+  prompts.forEach(function (p, i) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.textContent = p.q;
+    btn.setAttribute("aria-pressed", "false");
+    btn.addEventListener("click", function () { show(i); });
+    chips.appendChild(btn);
+    buttons.push(btn);
+  });
+  show(1);
+
+  var mr = document.getElementById("motion-recall");
+  var rp = document.getElementById("replay");
+  if (rp && mr) rp.addEventListener("click", function () { sweep(mr); });
+})();
+</script>
+</body>
+</html>

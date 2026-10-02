@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F2F0F9;
+  --foreground: #1F1535;
+
+  --rikol-plum: #1F1535;
+  --rikol-lilac: #B9A8FF;
+  --rikol-yellow: #FFD84A;
+  --rikol-mist: #F2F0F9;
+  --rikol-slate: #5A5472;
+  --rikol-dark-panel: #2B1F48;
+
+  --rikol-dark-background: #171028;
+  --rikol-dark-foreground: #F2F0F9;
+  --rikol-dark-muted: #A9A3C2;
+  --rikol-dark-line: #352A52;
+  --rikol-dark-panel-deep: #211739;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-bricolage);
+  --font-serif: var(--font-newsreader);
+
+  --color-rikol-plum: var(--rikol-plum);
+  --color-rikol-lilac: var(--rikol-lilac);
+  --color-rikol-yellow: var(--rikol-yellow);
+  --color-rikol-mist: var(--rikol-mist);
+  --color-rikol-slate: var(--rikol-slate);
+  --color-rikol-dark-panel: var(--rikol-dark-panel);
+  --color-rikol-dark-background: var(--rikol-dark-background);
+  --color-rikol-dark-foreground: var(--rikol-dark-foreground);
+  --color-rikol-dark-muted: var(--rikol-dark-muted);
+  --color-rikol-dark-line: var(--rikol-dark-line);
+  --color-rikol-dark-panel-deep: var(--rikol-dark-panel-deep);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-bricolage), sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--rikol-yellow);
+  color: var(--rikol-plum);
+}
+
+:focus-visible {
+  outline: 2px solid var(--rikol-lilac);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rikol-slate);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rikol-lilac);
+}
+
+/* Rikol composer: keep the textarea focus state clean and borderless */
+textarea:focus,
+textarea:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Password fields: use clean standard masking characters */
+input[type="password"] {
+  -webkit-text-security: disc !important;
+  text-security: disc !important;
+  font-family: Arial, sans-serif !important;
+}
