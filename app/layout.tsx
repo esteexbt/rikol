@@ -16,7 +16,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "rikol � An AI that remembers you.",
+  title: "Rikol",
   description: "A personal AI assistant that remembers you.",
 };
 
