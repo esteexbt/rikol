@@ -1,6 +1,9 @@
 "use client";
 
 import { RefObject } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import type { Message } from "@/components/chat/types";
 
 type MessageListProps = {
@@ -31,6 +34,19 @@ function RikolMark({
       />
       <circle cx="49.5" cy="14.5" r="6.5" fill="#FFD84A" />
     </svg>
+  );
+}
+
+function MarkdownMessage({ content }: { content: string }) {
+  return (
+    <div className="rikol-markdown break-words">
+      <ReactMarkdown
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 }
 
@@ -113,9 +129,7 @@ export default function MessageList({
                         </span>
                       </div>
 
-                      <p className="whitespace-pre-wrap break-words">
-                        {message.content}
-                      </p>
+                      <MarkdownMessage content={message.content} />
                     </div>
                   )}
                 </div>
