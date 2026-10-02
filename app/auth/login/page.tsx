@@ -126,24 +126,6 @@ export default function LoginPage() {
         </div>
 
         <div className="rounded-[26px] border border-[#352A52] bg-[#211739] p-6 shadow-2xl shadow-[#171028]/50">
-          <button
-            type="button"
-            onClick={handleGoogleSignIn}
-            disabled={googleLoading || loading}
-            className="flex w-full items-center justify-center gap-3 rounded-[14px] border border-[#4A3C69] bg-[#171028] px-4 py-3 text-[14px] font-semibold text-[#F2F0F9] transition hover:border-[#B9A8FF]/60 hover:bg-[#2B1F48] disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <GoogleIcon />
-            {googleLoading ? "Connecting to Google..." : "Continue with Google"}
-          </button>
-
-          <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-[#352A52]" />
-            <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#A9A3C2]/60">
-              or continue with email
-            </span>
-            <div className="h-px flex-1 bg-[#352A52]" />
-          </div>
-
           <form onSubmit={handleLogin}>
             <div className="space-y-5">
               <div>
@@ -200,6 +182,24 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
+
+          <div className="my-6 flex items-center gap-3">
+            <div className="h-px flex-1 bg-[#352A52]" />
+            <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#A9A3C2]/60">
+              or continue with
+            </span>
+            <div className="h-px flex-1 bg-[#352A52]" />
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={googleLoading || loading}
+            className="flex w-full items-center justify-center gap-3 rounded-[14px] border border-[#4A3C69] bg-[#171028] px-4 py-3 text-[14px] font-semibold text-[#F2F0F9] transition hover:border-[#B9A8FF]/60 hover:bg-[#2B1F48] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <GoogleIcon />
+            {googleLoading ? "Connecting to Google..." : "Continue with Google"}
+          </button>
         </div>
 
         <p className="mt-6 text-center text-[13px] text-[#A9A3C2]">
