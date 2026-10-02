@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr";
+﻿import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
@@ -34,6 +34,14 @@ export async function proxy(request: NextRequest) {
   const isAuthPage =
     pathname.startsWith("/auth/login") ||
     pathname.startsWith("/auth/sign-up");
+
+  const isAuthCallback = pathname.startsWith("/auth/callback");
+
+  // OAuth callbacks must be allowed through so the callback route
+  // can exchange the authorization code for a Supabase session.
+  if (isAuthCallback) {
+    return response;
+  }
 
   if (!user && !isAuthPage) {
     const url = request.nextUrl.clone();
