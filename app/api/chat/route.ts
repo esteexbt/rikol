@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     });
 
     const model = withMemWal(
-      google("gemini-3.8-flash"),
+      google("gemini-3.1-flash-lite"),
       {
         key: process.env.MEMWAL_PRIVATE_KEY!,
         accountId: process.env.MEMWAL_ACCOUNT_ID!,
