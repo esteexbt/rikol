@@ -35,11 +35,22 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith("/auth/login") ||
     pathname.startsWith("/auth/sign-up");
 
+  const isPasswordRecoveryPage =
+    pathname.startsWith("/auth/forgot-password") ||
+    pathname.startsWith("/auth/update-password");
+
   const isAuthCallback = pathname.startsWith("/auth/callback");
 
   // OAuth callbacks must be allowed through so the callback route
   // can exchange the authorization code for a Supabase session.
   if (isAuthCallback) {
+    return response;
+  }
+
+  // Password recovery pages must be publicly accessible.
+  // The update-password page receives its authenticated recovery
+  // session from Supabase after the user clicks the email link.
+  if (isPasswordRecoveryPage) {
     return response;
   }
 

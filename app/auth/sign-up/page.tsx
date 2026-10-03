@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -55,11 +55,63 @@ function GoogleIcon() {
   );
 }
 
+function EyeIcon({ visible }: { visible: boolean }) {
+  if (visible) {
+    return (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="h-5 w-5"
+      >
+        <path
+          d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle
+          cx="12"
+          cy="12"
+          r="2.5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+    >
+      <path
+        d="M3 3l18 18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10.6 6.2A9.7 9.7 0 0 1 12 6c6 0 9.5 6 9.5 6a17.5 17.5 0 0 1-3.1 3.8M6.1 6.9C3.7 8.2 2.5 12 2.5 12s3.5 6 9.5 6c1 0 1.9-.2 2.7-.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function SignUpPage() {
   const supabase = createClient();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -157,17 +209,31 @@ export default function SignUpPage() {
                   Password
                 </label>
 
-                <input
-                  id="password"
-                  type="password"
-                  style={{ fontFamily: "Arial, sans-serif" }}
-                  required
-                  minLength={6}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="At least 6 characters"
-                  className="w-full rounded-[14px] border border-[#352A52] bg-[#171028] px-4 py-3 text-[14px] text-[#F2F0F9] outline-none transition placeholder:text-[#A9A3C2]/50 focus:border-[#B9A8FF] focus:ring-2 focus:ring-[#B9A8FF]/15"
-                />
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    style={{ fontFamily: "Arial, sans-serif" }}
+                    required
+                    minLength={6}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    placeholder="At least 6 characters"
+                    className="w-full rounded-[14px] border border-[#352A52] bg-[#171028] px-4 py-3 pr-12 text-[14px] text-[#F2F0F9] outline-none transition placeholder:text-[#A9A3C2]/50 focus:border-[#B9A8FF] focus:ring-2 focus:ring-[#B9A8FF]/15"
+                  />
+
+                  <button
+                    type="button"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    title={showPassword ? "Hide password" : "Show password"}
+                    onClick={() => setShowPassword((visible) => !visible)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#A9A3C2] transition hover:bg-[#2B1F48] hover:text-[#F2F0F9]"
+                  >
+                    <EyeIcon visible={showPassword} />
+                  </button>
+                </div>
               </div>
 
               {error && (
